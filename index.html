@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Mac Overlay Menu</title>
+
+	<link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" type="text/css" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.1.0/css/font-awesome.min.css">
+
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=0, minimal-ui">
+	<!--[if lte IE 8]>
+		<script src="http://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7/html5shiv-printshiv.min.js"></script>
+	<![endif]-->
+
+	<style type='text/css'>
+		/* normalize for all modern broswers */
+		article,aside,details,figcaption,figure,footer,header,hgroup,main,nav,section,summary{display:block} audio,canvas,video{display:inline-block;*display:inline;*zoom:1} audio:not([controls]){display:none;height:0} [hidden]{display:none} html{font-size:100%;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%} button,html,input,select,textarea{font-family:sans-serif} a:focus{outline:thin dotted} a:active,a:hover{outline:0} h1{font-size:2em;margin:.67em 0} h2{font-size:1.5em;margin:.83em 0} h3{font-size:1.17em;margin:1em 0} h4{font-size:1em;margin:1.33em 0} h5{font-size:.83em;margin:1.67em 0} h6{font-size:.67em;margin:2.33em 0} abbr[title]{border-bottom:1px dotted} b,strong{font-weight:700} blockquote{margin:1em 40px} dfn{font-style:italic} hr{-moz-box-sizing:content-box;box-sizing:content-box;height:0} mark{background:#ff0;color:#000} p,pre{margin:1em 0} code,kbd,pre,samp{font-family:monospace,serif;_font-family:'courier new',monospace;font-size:1em} pre{white-space:pre;white-space:pre-wrap;word-wrap:break-word} q{quotes:none} q:after,q:before{content:'';content:none} small{font-size:80%} sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline} sup{top:-.5em} sub{bottom:-.25em} dl,menu,ol,ul{margin:1em 0} dd{margin:0 0 0 40px} menu,ol,ul{padding:0 0 0 40px} nav ol,nav ul{list-style:none;list-style-image:none} img{border:0;-ms-interpolation-mode:bicubic} svg:not(:root){overflow:hidden} figure,form{margin:0} fieldset{border:1px solid silver;margin:0 2px;padding:.35em .625em .75em} legend{border:0;padding:0;white-space:normal;*margin-left:-7px} button,input,select,textarea{font-size:100%;margin:0;vertical-align:baseline;*vertical-align:middle} button,input{line-height:normal} button,select{text-transform:none} button,html input[type=button],input[type=reset],input[type=submit]{-webkit-appearance:button;cursor:pointer;*overflow:visible} button[disabled],html input[disabled]{cursor:default} input[type=checkbox],input[type=radio]{box-sizing:border-box;padding:0;*height:13px;*width:13px} input[type=search]{-webkit-appearance:textfield;-moz-box-sizing:content-box;-webkit-box-sizing:content-box;box-sizing:content-box} input[type=search]::-webkit-search-cancel-button,input[type=search]::-webkit-search-decoration{-webkit-appearance:none} button::-moz-focus-inner,input::-moz-focus-inner{border:0;padding:0} textarea{overflow:auto;vertical-align:top} table{border-collapse:collapse;border-spacing:0}
+
+		body{
+			margin:0;padding:0;
+			color:#333;
+			font-family: 'Open Sans', sans-serif;
+
+			background: #eee url('img/bg2.jpg') top left;
+			background-size: cover;
+		}
+		
+		#mac-menu{
+			position: fixed;
+			top: 0; left: 0; right: 0; bottom: 0;
+			z-index: 999;
+			padding: 50px;
+			filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
+			opacity: 0;
+			background: rgba(0,0,0,0.5);
+			visibility: hidden;
+    		-webkit-transform: translate3d(0, 0, 0);
+		    -moz-transform: translate3d(0, 0, 0);
+		    -ms-transform: translate3d(0, 0, 0);
+		    -o-transform: translate3d(0, 0, 0);
+		    transform: translate3d(0, 0, 0);
+		    -webkit-transition-property: opacity,visibility;
+		    -moz-transition-property: opacity,visibility;
+		    -o-transition-property: opacity,visibility;
+		    transition-property: opacity,visibility;
+		    -webkit-transition-duration: 0.6s;
+		    -moz-transition-duration: 0.6s;
+		    -o-transition-duration: 0.6s;
+		    transition-duration: 0.6s;
+		}
+
+		#mac-menu.active{
+			visibility: visible;
+		    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
+		    opacity: 1;
+		}
+
+		#mc-inner {
+			position: relative;
+			-webkit-transform: scale3d(0.7, 0.7, 0.7);
+		    -moz-transform: scale3d(0.7, 0.7, 0.7);
+		    -ms-transform: scale3d(0.7, 0.7, 0.7);
+		    -o-transform: scale3d(0.7, 0.7, 0.7);
+		    transform: scale3d(0.7, 0.7, 0.7);
+		    -webkit-transition-property: all;
+		    -moz-transition-property: all;
+		    -o-transition-property: all;
+		    transition-property: all;
+		    -webkit-transition-duration: 0.4s;
+		    -moz-transition-duration: 0.4s;
+		    -o-transition-duration: 0.4s;
+		    transition-duration: 0.4s;
+		    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
+		    opacity: 0;
+		}
+
+		#mac-menu.active #mc-inner{
+			-webkit-transform: scale3d(1, 1, 1);
+		    -moz-transform: scale3d(1, 1, 1);
+		    -ms-transform: scale3d(1, 1, 1);
+		    -o-transform: scale3d(1, 1, 1);
+		    transform: scale3d(1, 1, 1);
+		    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
+		    opacity: 1;
+		}
+
+		#mc-inner.mc-hide-txt span.mc-txt{ display: none }
+		#mac-menu ul{ margin: 0; padding: 0; font-size: 60pt; text-align: center; }
+		#mac-menu li{ display: inline-block; padding: 30px 10px; width: 150px; }
+		#mac-menu li a{ color: #1abc9c; text-shadow: 0 0 20px #333; transition: all 0.3s; text-decoration: none }
+		#mac-menu li:nth-child(odd) a{ color: #16a085 }
+		#mac-menu li a:hover{ text-shadow: 0 0 40px #1abc9c; color: #fff }
+
+		#mac-menu span.mc-txt{ display: block; font-size: 12pt; color: #fff; }
+
+		div#mc-options { position: absolute; right: 0px; top: 120px; width: 40px; z-index: 1; }
+		div#mc-options > span{ display: block; margin-bottom: 5px; font-size: 15pt }
+		div#mc-options > span:hover i.fa-circle{ color: #fff }
+		div#mc-options > span:hover i.fa-inverse{ color: #444 }
+		div#mc-options i.fa{ cursor: pointer; color: #019875 }
+		div#mc-options i.fa-circle { text-shadow: 0 0 4px #000; color: #2ecc71 }
+
+		div#mc-options .mc-red .fa-circle{ color: #e74c3c }
+		div#mc-options .mc-red .fa-times{ color: #000 }
+
+		#wrapper{ max-width: 800px; width: 90%; margin: 40px auto; background: rgba(255,255,255,0.5); padding: 30px; box-shadow: 0 4px 20px #666 }
+		#wrapper #mc-show{ display: block; color: #1BA39C; text-align: center; margin: 30px auto 40px; cursor: pointer; }
+		#wrapper #mc-show:hover{ color: #333 }
+	</style>
+</head>
+<body>
+
+	<div id="wrapper">
+		<h1>Welcome!</h1>
+
+		<i class="fa fa-bank fa-3x" id="mc-show"> Click me</i>
+
+		<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi tincidunt accumsan nisl ut egestas. Fusce vitae nulla a metus ornare scelerisque molestie et nisi. Vivamus condimentum gravida purus ut ultricies. Nunc semper dolor a semper fringilla. Mauris et elit at dui posuere blandit vitae id nulla. Sed molestie sollicitudin felis, vitae accumsan odio placerat quis. Fusce porttitor blandit tempus. Praesent ultrices interdum commodo. Sed neque risus, gravida et dui sit amet, gravida convallis tellus. Mauris feugiat dignissim aliquam. Nulla semper augue non mauris aliquet, at malesuada libero rhoncus. Phasellus fermentum justo sit amet libero laoreet, non porta elit interdum.</p>
+		<p>Maecenas sit amet lacinia nisi. Aliquam erat volutpat. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. In vulputate, turpis in fringilla scelerisque, mauris nunc tempor turpis, sed ornare ante orci ut nunc. Donec posuere non velit in tempus. Nullam elementum, dui sit amet pulvinar dignissim, elit nibh egestas lectus, vel facilisis tortor dui quis metus. Quisque lacinia ante at nunc vehicula, ut dignissim lorem facilisis.</p>
+		<p>Aenean ullamcorper enim nisi, eu ultrices erat auctor sed. Pellentesque consequat ultrices nulla, quis sodales eros placerat pellentesque. Nulla consectetur lacus id enim vehicula blandit. Ut vitae varius eros, non venenatis libero. Praesent nec euismod erat, at tincidunt nisi. Integer dapibus sed lectus vel tincidunt. Aliquam molestie est ac urna fringilla, in commodo erat tempor. Duis scelerisque augue elit, sit amet pretium purus blandit vel. Integer ullamcorper nulla et libero lobortis egestas et id sapien. Aenean id erat tellus. Suspendisse posuere neque a faucibus euismod.</p>
+		<p>Nunc eu ornare odio. Aliquam erat nisi, porta et nibh a, porttitor pretium risus. Fusce fringilla, lacus tincidunt semper condimentum, lacus velit venenatis libero, eget posuere mauris quam nec urna. Morbi vel laoreet enim, vel congue metus. Praesent a posuere odio. Donec blandit volutpat massa sit amet tristique. Donec ornare felis sit amet risus molestie imperdiet. In non tempus erat. Suspendisse blandit nulla sapien. Nulla facilisi. Etiam semper tellus id tellus laoreet, quis euismod nulla cursus. Curabitur viverra dignissim cursus. Nulla sed metus quis dui vehicula vestibulum ac nec massa.</p>
+		<p>Vivamus at hendrerit libero, in vehicula nunc. Integer a ultrices enim, ut vulputate arcu. Nam adipiscing pulvinar auctor. Phasellus nulla ligula, hendrerit vel nulla in, adipiscing molestie quam. Nullam imperdiet arcu quis rutrum vehicula. Phasellus scelerisque scelerisque luctus. Aliquam condimentum congue semper. In leo sapien, vestibulum vel tincidunt vel, laoreet a metus. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Sed semper massa venenatis ultricies pellentesque.</p>
+		<p>Cras vehicula justo ac leo interdum, vel pellentesque arcu imperdiet. Nam gravida congue massa vitae congue. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ultrices, enim id dapibus gravida, nisi est scelerisque neque, vitae ultricies metus arcu et dolor. Phasellus convallis neque non ipsum hendrerit, lobortis mattis enim rhoncus. Duis nec suscipit purus. Aliquam erat volutpat. Nulla mollis eros vel massa mollis, a auctor ante fringilla. Curabitur iaculis rhoncus libero, ac ornare metus hendrerit quis.</p>
+		<p>Ut varius in elit in ultricies. Nam laoreet tristique euismod. Nam vitae suscipit est. Donec ut mauris sit amet sem luctus suscipit. Aliquam iaculis dictum porta. Nunc consequat nibh sed turpis pellentesque facilisis. Aliquam at vehicula ipsum, sit amet dignissim tortor. Ut bibendum volutpat augue id blandit. Phasellus sit amet elit dapibus, facilisis elit sed, iaculis libero. Phasellus a massa nisi. Quisque dignissim diam id metus porttitor, quis imperdiet nibh gravida. Proin vel nunc commodo, dictum ipsum ut, sollicitudin lectus. Sed vehicula ornare ligula, a vehicula lorem sollicitudin eu.</p>
+		<p>Integer molestie consequat leo sit amet venenatis. Vestibulum dictum luctus rutrum. Aliquam sit amet sodales leo. Etiam at elit at tortor placerat euismod. Vestibulum id tortor id nisi tempor ultricies vitae eget nibh. Curabitur convallis consectetur justo, in faucibus dolor malesuada a. Etiam blandit gravida tempor. Mauris nec sapien a dolor commodo sagittis. Vivamus eleifend erat at metus placerat, at vehicula risus auctor. Etiam sit amet egestas purus.</p>
+		<p>Sed volutpat arcu sit amet imperdiet dignissim. Praesent dui purus, bibendum in aliquet in, bibendum nec magna. Praesent a venenatis nunc. Mauris vehicula eget tellus vitae porttitor. Pellentesque mauris urna, faucibus vitae lacus non, luctus auctor ipsum. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Duis vulputate vulputate velit et facilisis. Nam sed nisl purus. Donec id urna tortor. Nunc ultricies libero eget sapien pretium, non lobortis mi vulputate. Curabitur nec ullamcorper leo. Vivamus id interdum turpis, vel suscipit tellus. Quisque accumsan tortor velit, a condimentum quam luctus ac.</p>
+		<p>Proin scelerisque elementum pharetra. Vivamus tellus mauris, ornare ut pharetra ut, tristique quis nulla. Vestibulum tincidunt, tortor ut porta aliquam, nisl nibh bibendum felis, ut auctor nulla orci vel ligula. Vivamus ut tempus neque. Cras fringilla euismod orci a vulputate. Morbi iaculis pulvinar nisl a consectetur. Vivamus aliquam vel elit nec eleifend. Sed quis massa enim. Aliquam ut purus condimentum, placerat libero ut, interdum velit.</p>
+		<p>Morbi lacinia metus a magna bibendum facilisis. Praesent vitae lobortis erat. Mauris pharetra aliquet metus, id bibendum enim pulvinar sed. Cras ultrices purus elit, ut consequat eros mattis sit amet. Suspendisse id suscipit quam. Proin laoreet rhoncus arcu. Vestibulum ut molestie turpis. Quisque non consequat leo. Nam rhoncus leo ac mauris lacinia, ac molestie sapien sagittis. Integer imperdiet, elit vitae faucibus semper, sem mi pellentesque mi, ut pharetra tellus turpis sit amet ligula. Proin in lacus blandit, ornare enim et, consectetur enim. Sed orci augue, lacinia eget volutpat quis, mollis a erat. Nullam in consectetur quam, vitae elementum tortor.</p>
+		<p>Sed arcu mi, condimentum id congue non, gravida id arcu. Nam faucibus mauris vel nulla consectetur egestas. Praesent at facilisis mauris, ac tristique urna. Sed eu pellentesque eros. Vivamus pharetra nulla eget lorem dignissim molestie. Nulla erat velit, aliquet in nulla ac, mollis tristique mi. Quisque dictum eros diam, eu lobortis augue bibendum pellentesque. Nulla facilisi. Morbi a velit vitae elit ornare tempus quis blandit diam. Sed auctor venenatis tellus, eu laoreet purus tincidunt eget. Quisque justo lectus, tempus nec tellus in, consectetur tristique nisi. Vestibulum non erat ipsum. Fusce semper, mi ut dignissim adipiscing, massa magna venenatis erat, vel eleifend ante nisl sit amet turpis.</p>
+		<p>Fusce tincidunt, est eu varius dapibus, lacus metus ornare nibh, a pellentesque sapien massa a massa. Etiam elementum, enim non convallis scelerisque, ipsum lorem faucibus eros, id dictum ipsum ipsum eget leo. Morbi rhoncus, lacus ut scelerisque dictum, arcu nunc congue purus, sed feugiat mi eros et elit. Cras in ultrices dui, et tempus nisl. Integer varius venenatis lectus in gravida. Mauris viverra neque nec leo bibendum, non consectetur est ullamcorper. Ut vulputate lorem quam, eu porttitor nulla gravida vel. Integer sed eros fermentum, posuere justo nec, mollis arcu. Aliquam placerat a nisl a ullamcorper. Nullam scelerisque mi dolor, vitae venenatis sem venenatis quis. Praesent cursus lacus nisi, id vehicula nulla elementum quis. Donec malesuada justo at tempor accumsan. Sed ut gravida velit, nec rutrum odio. Sed feugiat, leo ut dapibus vestibulum, urna augue aliquet quam, id gravida justo arcu id nibh. Vestibulum elementum, ante non eleifend placerat, tortor urna vestibulum velit, pellentesque luctus nisi nunc ut nunc. Suspendisse potenti.</p>
+		<p>Integer nec odio ut tortor imperdiet feugiat vitae quis turpis. Phasellus a velit vitae est ullamcorper viverra. Nunc in ipsum quis augue scelerisque lobortis. Vivamus vestibulum, urna ac eleifend blandit, odio erat viverra est, nec dictum ligula arcu a tortor. Nullam elementum augue quis quam congue, ac mattis nisl mollis. Vestibulum malesuada ipsum at pretium tristique. Duis laoreet felis urna, interdum commodo leo viverra nec. Sed et imperdiet justo. Morbi accumsan ligula non mi venenatis interdum. Praesent hendrerit porta lorem, at elementum elit condimentum sit amet. In hac habitasse platea dictumst. Duis semper lacus quam. Pellentesque condimentum massa ac dui auctor, non ornare turpis faucibus.</p>
+		<p>Vivamus sed ullamcorper lorem. Mauris in erat bibendum, blandit urna in, convallis tortor. Ut adipiscing laoreet neque, a congue elit porta non. Etiam eros leo, consequat ut luctus vel, luctus quis nisl. Morbi faucibus justo tellus, eget mollis quam ultricies id. Nulla placerat turpis tempus interdum porttitor. Duis id libero fringilla tellus commodo imperdiet. Proin dictum, nulla non feugiat porttitor, turpis sem interdum neque, at sodales purus sapien in massa. Pellentesque quis nunc purus. Duis convallis mauris id enim ultrices convallis elementum quis augue. Vestibulum nisi dui, lobortis in ipsum mattis, commodo tempus libero. Vivamus vehicula pretium pretium.</p>
+
+	</div>
+
+	<div id="mac-menu">
+		<div id="blurred"><div id="blur_wrap"></div></div>
+		<div id="mc-inner" class="mc-hide-txt">
+			<div id="mc-options">
+				<span id="mc-exit" class="fa-stack fa-lg mc-red">
+					<i class="fa fa-circle fa-stack-2x"></i>
+					<i class="fa fa-times fa-stack-1x"></i>
+				</span>
+				<span class="fa-stack fa-lg">
+					<i class="fa fa-circle fa-stack-2x"></i>
+					<i class="fa fa-cog fa-stack-1x"></i>
+				</span>
+			</div>
+			<ul>
+				<li><a href="#"><i class="fa fa-home"></i><span class="mc-txt">Home</span></a></li>
+				<li><a href="#"><i class="fa fa-clock-o"></i><span class="mc-txt">clock</span></a></li>
+				<li><a href="#"><i class="fa fa-music"></i><span class="mc-txt">music</span></a></li>
+				<li><a href="#"><i class="fa fa-bank"></i><span class="mc-txt">bank</span></a></li>
+				<li><a href="#"><i class="fa fa-bomb"></i><span class="mc-txt">bomb</span></a></li>
+				<li><a href="#"><i class="fa fa-car"></i><span class="mc-txt">car</span></a></li>
+				<li><a href="#"><i class="fa fa-empire"></i><span class="mc-txt">empire</span></a></li>
+				<li><a href="#"><i class="fa fa-fax"></i><span class="mc-txt">fax</span></a></li>
+				<li><a href="#"><i class="fa fa-google"></i><span class="mc-txt">google</span></a></li>
+				<li><a href="#"><i class="fa fa-slack"></i><span class="mc-txt">slack</span></a></li>
+			</ul>
+		</div>
+	</div>
+	
+
+	<script type="text/javascript">
+
+		var macmenu = document.getElementById('mac-menu'),
+			mcopen = document.getElementById('mc-show'),
+			mcexit = document.getElementById('mc-exit');
+
+		mcopen.onclick = function(e) {
+			macmenu.className = 'active';
+		};
+
+		mcexit.onclick = function(e) {
+			macmenu.className = '';
+		};
+	</script>
+</body>
+</html>
